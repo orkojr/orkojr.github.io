@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jordan Kamga Wafo, ERP Odoo et applications mobiles sur mesure</title>
+<meta name="description" content="Développeur Odoo et mobile à Douala. ERP sur mesure (paie, RH, multi-sociétés), points de vente pour la restauration et applications mobiles Flutter et React Native.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F6FB; --surface:#FFFFFF; --raised:#FFFFFF; --line:#DDE2EE;
+  --ink:#0C1530; --muted:#55607E; --accent:#1B3A8C; --accent-ink:#FFFFFF; --accent-soft:rgba(27,58,140,.08);
+  --glow:rgba(27,58,140,.15);
+  --display:"Sora","Trebuchet MS","Segoe UI",sans-serif;
+  --body:"Manrope","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="dark"]{
+  --bg:#080E1D; --surface:#0F1830; --raised:#16213F; --line:#223056;
+  --ink:#EDF1FA; --muted:#98A4C2; --accent:#6C9DFF; --accent-ink:#071027; --accent-soft:rgba(108,157,255,.13);
+  --glow:rgba(37,88,220,.32);
+}
+:root[data-theme="light"]{
+  --bg:#F4F6FB; --surface:#FFFFFF; --raised:#FFFFFF; --line:#DDE2EE;
+  --ink:#0C1530; --muted:#55607E; --accent:#1B3A8C; --accent-ink:#FFFFFF; --accent-soft:rgba(27,58,140,.08);
+  --glow:rgba(27,58,140,.15);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 5rem);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:74rem;margin:0 auto;padding:0 1.5rem}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.025em;line-height:1.1;margin:0}
+p{margin:0}
+
+/* Navigation */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:4.25rem}
+.brand{font-family:var(--display);font-weight:600;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.6rem}
+.brand i{width:1.9rem;height:1.9rem;border-radius:.55rem;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-style:normal;font-size:.8rem;font-weight:700}
+.bar nav{display:flex;align-items:center;gap:1.75rem}
+.bar nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.9375rem}
+.bar nav a:hover{color:var(--ink)}
+.bar nav a.cta{background:var(--ink);color:var(--bg);padding:.55rem 1rem;border-radius:2rem}
+.theme{background:none;border:1px solid var(--line);color:var(--ink);border-radius:50%;width:2.4rem;height:2.4rem;cursor:pointer;font-size:1rem}
+
+/* Accueil */
+.hero{position:relative;overflow:clip}
+.hero::before{content:"";position:absolute;right:-10rem;top:-6rem;width:52rem;height:42rem;background:radial-gradient(closest-side,var(--glow),transparent);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:3rem;align-items:center;padding-top:4.5rem;padding-bottom:5rem}
+.who{color:var(--muted);font-weight:600;margin-bottom:1.25rem}
+.who b{color:var(--ink)}
+h1{font-weight:700;font-size:clamp(2.3rem,4.6vw,3.7rem);margin-bottom:1.5rem}
+.lede{font-size:1.1875rem;color:var(--muted);max-width:32rem;margin-bottom:2.25rem}
+.actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.btn{display:inline-block;padding:.95rem 1.5rem;border-radius:2rem;font-weight:700;text-decoration:none;font-size:1rem}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--muted)}
+
+/* Démos */
+.stage{position:relative;min-height:36rem;animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.try{position:absolute;left:0;top:-2.1rem;font-size:.875rem;color:var(--muted);font-weight:600}
+.try b{color:var(--accent)}
+
+.erp{--e-ink:#1D2033;--e-m:#6C728A;--e-line:#E4E6F0;--e-v:#6B3FA0;
+  position:absolute;left:0;top:0;width:calc(100% - 5rem);background:#F6F7FB;color:var(--e-ink);border-radius:.9rem;overflow:hidden;box-shadow:0 30px 70px -25px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06);font-size:.8125rem;line-height:1.4}
+.erp .top{background:var(--e-v);color:#fff;display:flex;align-items:center;gap:.9rem;padding:.6rem .9rem;font-weight:600}
+.erp .top span{opacity:.75;font-weight:500}
+.erp .co{display:flex;gap:.35rem;padding:.7rem .9rem;border-bottom:1px solid var(--e-line);background:#fff;overflow-x:auto;scrollbar-width:none}
+.erp .co::-webkit-scrollbar{display:none}
+.erp .co button{font:inherit;font-weight:600;font-size:.75rem;white-space:nowrap;border:1px solid var(--e-line);background:#fff;color:var(--e-m);padding:.3rem .65rem;border-radius:2rem;cursor:pointer}
+.erp .co button[aria-pressed="true"]{background:var(--e-v);border-color:var(--e-v);color:#fff}
+.erp .pad{padding:.9rem 12.6rem .9rem .9rem}
+.erp .k{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-bottom:.7rem}
+.erp .k div{background:#fff;border:1px solid var(--e-line);border-radius:.6rem;padding:.65rem .75rem;color:var(--e-m)}
+.erp .k b{display:block;font-family:var(--display);font-size:1.25rem;color:var(--e-ink);letter-spacing:-.02em}
+.erp .ch{background:#fff;border:1px solid var(--e-line);border-radius:.6rem;padding:.75rem}
+.erp .ch p{color:var(--e-m);margin-bottom:.6rem}
+.erp .bars{display:flex;align-items:flex-end;gap:.45rem;height:8.5rem}
+.erp .bars div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.25rem;height:100%;font-size:.65rem;color:var(--e-m)}
+.erp .bars i{display:block;width:100%;background:var(--e-v);border-radius:.25rem .25rem 0 0;transition:height .45s cubic-bezier(.2,.7,.2,1);opacity:.85}
+
+.phone{position:absolute;right:0;bottom:0;width:17rem;background:#05060D;border-radius:2.3rem;padding:.55rem;box-shadow:0 35px 80px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.09)}
+.app{--a-bg:#F2F4F9;--a-s:#fff;--a-ink:#151929;--a-m:#6A718A;--a-line:#E2E6F0;--a-b:#2457E6;--a-g:#12915A;--a-r:#C4372C;
+  background:var(--a-bg);color:var(--a-ink);border-radius:1.8rem;overflow:hidden;height:31.5rem;display:flex;flex-direction:column;font-size:.78rem;line-height:1.35;position:relative}
+.app header{background:var(--a-s);padding:.9rem 1rem .75rem;border-bottom:1px solid var(--a-line);font-weight:700;font-size:.95rem;font-family:var(--body)}
+.app .view{flex:1;overflow-y:auto;padding:.7rem;scrollbar-width:none}
+.app .view::-webkit-scrollbar{display:none}
+.row{background:var(--a-s);border:1px solid var(--a-line);border-radius:.7rem;padding:.6rem .7rem;margin-bottom:.5rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.row b{display:block;font-size:.8125rem}
+.row small{color:var(--a-m);font-size:.7rem}
+.row .q{font-weight:700;color:var(--a-b);font-size:1rem;text-align:right}
+.row .q.low{color:var(--a-r)}
+.step{display:flex;align-items:center;gap:.4rem}
+.step button{width:1.7rem;height:1.7rem;border-radius:50%;border:1px solid var(--a-line);background:var(--a-s);color:var(--a-b);font-weight:700;font-size:1rem;line-height:1;cursor:pointer;padding:0}
+.step button:disabled{opacity:.35;cursor:default}
+.step span{min-width:1rem;text-align:center;font-weight:700}
+.pay{background:var(--a-s);border-top:1px solid var(--a-line);padding:.6rem .7rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.pay b{font-size:.95rem}
+.pay button{font:inherit;font-weight:700;background:var(--a-b);color:#fff;border:0;border-radius:.6rem;padding:.55rem .9rem;cursor:pointer}
+.pay button:disabled{opacity:.4;cursor:default}
+.ok{background:#DCF3E7;color:var(--a-g);font-weight:700;border-radius:.6rem;padding:.55rem .7rem;margin-bottom:.6rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.g2 div{background:var(--a-s);border:1px solid var(--a-line);border-top:3px solid var(--c);border-radius:.7rem;padding:.65rem;color:var(--a-m)}
+.g2 b{display:block;font-size:1rem;color:var(--c);margin-bottom:.1rem}
+.st{font-weight:700;font-size:.7rem}
+.st.p{color:var(--a-g)} .st.c{color:var(--a-m)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);background:var(--a-s);border-top:1px solid var(--a-line)}
+.tabs button{font:inherit;font-size:.7rem;font-weight:600;border:0;background:none;color:var(--a-m);padding:.7rem 0 .8rem;cursor:pointer}
+.tabs button[aria-pressed="true"]{color:var(--a-b);box-shadow:inset 0 2px 0 var(--a-b)}
+.toast{position:absolute;left:.7rem;right:.7rem;bottom:3.4rem;background:var(--a-ink);color:#fff;border-radius:.6rem;padding:.55rem .7rem;font-weight:600;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;pointer-events:none}
+.toast.on{opacity:1;transform:none}
+.demo-note{position:absolute;left:0;bottom:-1.9rem;font-size:.8125rem;color:var(--muted)}
+
+/* Bandeau de faits */
+.facts{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.facts .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.facts .wrap > div{padding:1.6rem 1.25rem;border-left:1px solid var(--line)}
+.facts .wrap > div:first-child{border-left:0;padding-left:0}
+.facts b{display:block;font-family:var(--display);font-size:1.5rem;letter-spacing:-.02em}
+.facts span{color:var(--muted);font-size:.9375rem}
+
+section.block{padding:6rem 0}
+.head{max-width:40rem;margin-bottom:3rem}
+.head h2{font-size:clamp(1.9rem,3.6vw,2.9rem);font-weight:700;margin-bottom:.9rem}
+.head p{color:var(--muted);font-size:1.125rem}
+
+/* Grille d'expertise */
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:1rem}
+.cell{background:var(--surface);border:1px solid var(--line);border-radius:1.25rem;padding:1.75rem;grid-column:span 2;display:flex;flex-direction:column}
+.cell.big{grid-column:span 4;grid-row:span 2;background:linear-gradient(140deg,var(--raised),var(--surface));padding:2.25rem}
+.cell.wide{grid-column:span 3}
+.cell h3{font-size:1.25rem;margin-bottom:.6rem}
+.cell.big h3{font-size:1.9rem;max-width:24rem;margin-bottom:1rem}
+.cell p{color:var(--muted);font-size:.975rem}
+.cell.big p{font-size:1.0625rem;max-width:30rem}
+.mods{list-style:none;margin:auto 0 0;padding:1.75rem 0 0;display:flex;flex-wrap:wrap;gap:.5rem}
+.mods li{font-weight:600;font-size:.875rem;padding:.4rem .8rem;border-radius:2rem;background:var(--accent-soft);color:var(--accent)}
+
+/* Projets */
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4rem;align-items:center;padding:3.5rem 0;border-top:1px solid var(--line)}
+.case:last-of-type{border-bottom:1px solid var(--line)}
+.case.flip .vis{order:-1}
+.meta{color:var(--muted);font-weight:600;font-size:.9375rem;margin-bottom:.9rem;display:flex;gap:.75rem;flex-wrap:wrap;align-items:center}
+.live{color:var(--accent);display:inline-flex;align-items:center;gap:.4rem}
+.live::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--accent)}
+.case h3{font-size:clamp(1.5rem,2.6vw,2.1rem);font-weight:700;margin-bottom:1.5rem}
+.case dl{margin:0}
+.case dt{font-weight:700;font-size:.9375rem;margin-top:1.1rem}
+.case dt:first-child{margin-top:0}
+.case dd{margin:.2rem 0 0;color:var(--muted)}
+.techs{margin-top:1.75rem;color:var(--muted);font-size:.9375rem;font-weight:600}
+.vis{background:var(--surface);border:1px solid var(--line);border-radius:1.25rem;padding:2rem;min-height:20rem;display:grid;place-items:center}
+.vis figure{margin:0;width:100%}
+.vis figcaption{text-align:center;color:var(--muted);font-size:.8125rem;margin-top:1.25rem}
+
+/* Schéma holding */
+.arch{display:flex;flex-direction:column;align-items:center;gap:0}
+.node{border:1px solid var(--line);background:var(--raised);border-radius:.8rem;padding:.7rem 1.1rem;font-weight:700;font-size:.9rem;text-align:center}
+.node.core{background:var(--accent);color:var(--accent-ink);border-color:transparent;padding:.9rem 1.6rem}
+.node small{display:block;font-weight:500;font-size:.75rem;opacity:.8}
+.stem{width:1px;height:1.5rem;background:var(--line)}
+.rail{width:calc(100% - 100%/6);height:1px;background:var(--line)}
+.kids{display:grid;grid-template-columns:repeat(6,1fr);gap:.4rem;width:100%}
+.kids div{display:flex;flex-direction:column;align-items:center}
+.kids .node{padding:.55rem .2rem;width:100%;font-size:.75rem}
+.kids .stem{height:1rem}
+.shared{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-bottom:.2rem}
+.shared span{font-size:.75rem;font-weight:600;color:var(--muted);border:1px dashed var(--line);border-radius:2rem;padding:.25rem .6rem}
+
+/* Reçu */
+.ticket{width:15rem;margin:0 auto;background:#FBFBF7;color:#1B1B1B;font-family:"Courier New",Courier,monospace;font-size:.8rem;line-height:1.5;padding:1.25rem 1.1rem 1.6rem;box-shadow:0 20px 40px -18px rgba(0,0,0,.55);transform:rotate(-2deg);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),95% 100%,90% calc(100% - 8px),85% 100%,80% calc(100% - 8px),75% 100%,70% calc(100% - 8px),65% 100%,60% calc(100% - 8px),55% 100%,50% calc(100% - 8px),45% 100%,40% calc(100% - 8px),35% 100%,30% calc(100% - 8px),25% 100%,20% calc(100% - 8px),15% 100%,10% calc(100% - 8px),5% 100%,0 calc(100% - 8px))}
+.ticket .c{text-align:center;font-weight:700}
+.ticket hr{border:0;border-top:1px dashed #999;margin:.5rem 0}
+.ticket div{display:flex;justify-content:space-between;gap:.5rem}
+.ticket .t{font-weight:700;font-size:.95rem}
+
+/* Planning hôtelier */
+.plan{width:100%;font-size:.72rem;color:var(--muted)}
+.plan .r{display:grid;grid-template-columns:4.5rem repeat(7,1fr);gap:3px;margin-bottom:3px;align-items:center}
+.plan .r span{text-align:center}
+.plan .r span:first-child{text-align:left;font-weight:600}
+.plan i{display:block;height:1.7rem;border-radius:.3rem;background:var(--raised);border:1px solid var(--line)}
+.plan i.b{background:var(--accent);border-color:transparent;opacity:.9}
+.plan i.h{background:var(--accent-soft);border-color:transparent}
+.plan .leg{display:flex;gap:1rem;margin-top:.9rem}
+.plan .leg span{display:flex;align-items:center;gap:.4rem}
+.plan .leg i{width:.9rem;height:.9rem}
+
+.others{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:3.5rem}
+.others article{background:var(--surface);border:1px solid var(--line);border-radius:1.25rem;padding:1.75rem}
+.others h3{font-size:1.2rem;margin-bottom:.5rem}
+.others p{color:var(--muted);font-size:.975rem}
+.others .techs{margin-top:1rem}
+
+/* Méthode */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;counter-reset:s}
+.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:1.25rem;padding:1.6rem}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--display);font-weight:700;margin-bottom:1.1rem}
+.steps h3{font-size:1.0625rem;margin-bottom:.4rem}
+.steps p{color:var(--muted);font-size:.9375rem}
+
+/* Parcours */
+.two{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:4rem}
+.path{list-style:none;margin:0;padding:0}
+.path li{display:grid;grid-template-columns:9.5rem 1fr;gap:1.5rem;padding:1.4rem 0;border-top:1px solid var(--line)}
+.path li:last-child{border-bottom:1px solid var(--line)}
+.path .when{color:var(--muted);font-size:.9rem;font-weight:600;padding-top:.15rem}
+.path strong{font-family:var(--display);font-size:1.0625rem;display:block}
+.path em{font-style:normal;color:var(--accent);font-weight:600;font-size:.9375rem}
+.path p{color:var(--muted);font-size:.9375rem;margin-top:.3rem}
+.aside h3{font-size:1rem;margin:0 0 .7rem}
+.aside p{color:var(--muted);font-size:.975rem;margin-bottom:1.75rem}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;margin:0 0 1.75rem;padding:0}
+.chips li{font-size:.875rem;font-weight:600;padding:.3rem .75rem;border-radius:2rem;border:1px solid var(--line)}
+
+/* Contact */
+.contact{padding:0 0 5rem;overflow:clip}
+.cbox{background:linear-gradient(140deg,var(--raised),var(--surface));border:1px solid var(--line);border-radius:1.75rem;padding:4rem 3.5rem;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:3rem;align-items:center;position:relative;overflow:hidden}
+.cbox::before{content:"";position:absolute;left:-8rem;bottom:-14rem;width:34rem;height:30rem;background:radial-gradient(closest-side,var(--glow),transparent);pointer-events:none}
+.cbox > *{position:relative}
+.cbox h2{font-size:clamp(2rem,4vw,3.1rem);font-weight:700;margin-bottom:1.1rem}
+.cbox p{color:var(--muted);margin-bottom:2rem;max-width:30rem;font-size:1.0625rem}
+.links{list-style:none;margin:0;padding:0}
+.links li{border-top:1px solid var(--line);padding:1rem 0;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.links li:last-child{border-bottom:1px solid var(--line)}
+.links span{color:var(--muted)}
+.links a{color:var(--ink);font-weight:600}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:.875rem}
+footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+
+@media (max-width:64rem){
+  .hero .wrap{grid-template-columns:minmax(0,1fr);gap:5rem;padding-top:3rem}
+  .stage{max-width:38rem;width:100%;margin:0 auto}
+  .case,.two,.cbox{grid-template-columns:minmax(0,1fr);gap:2.5rem}
+  .case.flip .vis{order:0}
+  .bento{grid-template-columns:repeat(2,1fr)}
+  .cell,.cell.wide{grid-column:span 1}
+  .cell.big{grid-column:span 2;grid-row:auto}
+  .steps{grid-template-columns:1fr 1fr}
+  .bar nav a:not(.cta){display:none}
+  .facts .wrap{grid-template-columns:1fr 1fr}
+  .facts .wrap > div:nth-child(3){border-left:0;padding-left:0}
+  .facts .wrap > div:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:40rem){
+  .wrap{padding:0 1.1rem}
+  section.block{padding:4rem 0}
+  .stage{min-height:0;display:flex;flex-direction:column;gap:1.25rem;animation:none}
+  .try,.demo-note{position:static}
+  .erp,.phone{position:static;width:100%}
+  .erp .pad{padding:.9rem}
+  .phone{max-width:18rem;margin:0 auto}
+  .bento,.steps,.others{grid-template-columns:1fr}
+  .cell.big{grid-column:span 1;padding:1.75rem}
+  .cell.big h3{font-size:1.5rem}
+  .vis{padding:1.25rem}
+  .path li{grid-template-columns:1fr;gap:.3rem}
+  .cbox{padding:2.5rem 1.5rem}
+  .kids{grid-template-columns:repeat(3,1fr);row-gap:.6rem}
+  .rail,.kids .stem{display:none}
+  .bar nav{gap:.6rem}
+  .brand{white-space:nowrap;font-size:.95rem}
+  .brand i{display:none}
+  .bar nav a.cta{white-space:nowrap;font-size:.85rem;padding:.5rem .8rem}
+  .hero .wrap{gap:2.5rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.stage{animation:none}.erp .bars i,.toast{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top"><i>JK</i>Jordan Kamga Wafo</a>
+    <nav aria-label="Sections">
+      <a href="#expertise">Expertise</a>
+      <a href="#projets">Réalisations</a>
+      <a href="#methode">Méthode</a>
+      <a href="#parcours">Parcours</a>
+      <a class="cta" href="#contact">Discuter d'un projet</a>
+      <button class="theme" id="theme" type="button" aria-label="Changer de thème clair ou sombre">◐</button>
+    </nav>
+  </div>
+</div>
+
+<main id="top">
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <p class="who"><b>Jordan Kamga Wafo</b>, développeur Odoo et mobile à Douala</p>
+      <h1>Toute votre entreprise dans un seul système, de la paie à la caisse.</h1>
+      <p class="lede">Je conçois des ERP Odoo sur mesure et les applications mobiles qui s'y connectent. Vous gérez vos équipes, vos ventes et vos stocks au même endroit, depuis le bureau ou depuis un téléphone.</p>
+      <div class="actions">
+        <a class="btn primary" href="#contact">Discuter de votre projet</a>
+        <a class="btn ghost" href="#projets">Voir les réalisations</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <p class="try"><b>Essayez.</b> Changez de filiale, puis encaissez une commande sur le téléphone.</p>
+
+      <div class="erp" aria-label="Démonstration d'un tableau de bord ERP multi-sociétés">
+        <div class="top">Tableau de bord <span>Ressources humaines et ventes</span></div>
+        <div class="co" id="co"></div>
+        <div class="pad">
+          <div class="k">
+            <div><b id="k0">0</b>Employés</div>
+            <div><b id="k1">0</b>Paie, en M XAF</div>
+            <div><b id="k2">0</b>Factures du mois</div>
+            <div><b id="k3">0</b>Congés en cours</div>
+          </div>
+          <div class="ch"><p>Paie des 6 derniers mois</p><div class="bars" id="bars"></div></div>
+        </div>
+      </div>
+
+      <div class="phone" aria-label="Démonstration d'un point de vente mobile">
+        <div class="app">
+          <header id="apptitle">Nouvelle vente</header>
+          <div class="view" id="view"></div>
+          <div class="pay" id="pay"><b id="total">0 XAF</b><button id="cash" type="button" disabled>Encaisser</button></div>
+          <div class="toast" id="toast" role="status"></div>
+          <div class="tabs" id="tabs">
+            <button type="button" data-t="vente">Vente</button>
+            <button type="button" data-t="hist">Historique</button>
+            <button type="button" data-t="sess">Session</button>
+            <button type="button" data-t="stock">Stocks</button>
+          </div>
+        </div>
+      </div>
+      <p class="demo-note">Démonstration avec des données fictives.</p>
+    </div>
+  </div>
+</div>
+
+<div class="facts">
+  <div class="wrap">
+    <div><b>Depuis 2022</b><span>sur Odoo, du déploiement à l'architecture</span></div>
+    <div><b>6 filiales</b><span>pilotées dans un seul ERP de holding</span></div>
+    <div><b>2 applications</b><span>mobiles en production</span></div>
+    <div><b>5 ans et plus</b><span>de développement logiciel</span></div>
+  </div>
+</div>
+
+<section class="block" id="expertise">
+  <div class="wrap">
+    <div class="head">
+      <h2>Ce que je construis pour vous</h2>
+      <p>Des outils adaptés à votre façon de travailler, que vos équipes utilisent vraiment.</p>
+    </div>
+    <div class="bento">
+      <div class="cell big">
+        <h3>Un ERP Odoo taillé pour votre activité</h3>
+        <p>Quand les modules standards ne suffisent pas, je développe les vôtres. Vos processus restent les vôtres, et toutes vos données vivent dans un seul système au lieu de dix fichiers Excel.</p>
+        <ul class="mods"><li>Paie</li><li>Ressources humaines</li><li>Comptabilité</li><li>Ventes</li><li>Achats</li><li>Stocks</li><li>Suivi de projets</li></ul>
+      </div>
+      <div class="cell">
+        <h3>Paie et RH</h3>
+        <p>Recrutement, contrats, congés et bulletins de paie, avec vos propres règles de calcul.</p>
+      </div>
+      <div class="cell">
+        <h3>Caisse et restauration</h3>
+        <p>Commandes par serveur, clôture de caisse, reçus imprimés, crédit et paiements partiels.</p>
+      </div>
+      <div class="cell">
+        <h3>Applications mobiles</h3>
+        <p>Android et iOS à partir d'un seul code, en Flutter ou React Native, connectées à votre ERP.</p>
+      </div>
+      <div class="cell">
+        <h3>Groupes et holdings</h3>
+        <p>Plusieurs sociétés dans une seule base, chacune avec ses données et ses droits d'accès.</p>
+      </div>
+      <div class="cell">
+        <h3>Métiers spécifiques</h3>
+        <p>Gestion locative, gestion hôtelière, suivi-évaluation : des modules conçus pour un métier précis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="projets" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <h2>Réalisations</h2>
+      <p>Les clients ne sont pas nommés, par confidentialité. Je vous en dis plus de vive voix.</p>
+    </div>
+
+    <article class="case">
+      <div>
+        <p class="meta"><span>ERP Odoo</span><span>Enseignement supérieur</span><span class="live">En production</span></p>
+        <h3>Six filiales, un seul ERP</h3>
+        <dl>
+          <dt>Le besoin</dt><dd>Un groupe de six sociétés voulait piloter l'ensemble sans multiplier les outils ni mélanger les données de chacune.</dd>
+          <dt>Ce que j'ai construit</dt><dd>Une architecture Odoo multi-sociétés : RH complète (recrutement, paie, congés), comptabilité, gestion commerciale et indicateurs de pilotage.</dd>
+          <dt>Ce que ça change</dt><dd>Chaque filiale travaille dans son périmètre, et la direction voit le groupe entier sur un seul tableau de bord.</dd>
+        </dl>
+        <p class="techs">Odoo, Python, PostgreSQL, Docker, GitLab CI/CD</p>
+      </div>
+      <div class="vis">
+        <figure>
+          <div class="arch" aria-hidden="true">
+            <div class="shared"><span>RH et paie</span><span>Comptabilité</span><span>Ventes</span><span>Indicateurs</span></div>
+            <div class="stem"></div>
+            <div class="node core">ERP du groupe<small>une seule base Odoo</small></div>
+            <div class="stem"></div>
+            <div class="rail"></div>
+            <div class="kids">
+              <div><div class="stem"></div><div class="node">Filiale 1</div></div>
+              <div><div class="stem"></div><div class="node">Filiale 2</div></div>
+              <div><div class="stem"></div><div class="node">Filiale 3</div></div>
+              <div><div class="stem"></div><div class="node">Filiale 4</div></div>
+              <div><div class="stem"></div><div class="node">Filiale 5</div></div>
+              <div><div class="stem"></div><div class="node">Filiale 6</div></div>
+            </div>
+          </div>
+          <figcaption>Données isolées par société, vue consolidée pour la direction</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="case flip">
+      <div>
+        <p class="meta"><span>Application mobile</span><span>Bars et restaurants</span><span class="live">En production</span></p>
+        <h3>La caisse dans la poche du serveur</h3>
+        <dl>
+          <dt>Le besoin</dt><dd>Prendre les commandes en salle, encaisser et suivre les stocks sans retourner à un poste fixe.</dd>
+          <dt>Ce que j'ai construit</dt><dd>Une application de point de vente : commandes par serveur, session de caisse, état des stocks, impression des reçus, commandes à crédit et paiements partiels.</dd>
+          <dt>Ce que ça change</dt><dd>Le gérant suit son chiffre d'affaires et ses ruptures de stock en direct, et clôture sa caisse depuis son téléphone.</dd>
+        </dl>
+        <p class="techs">React Native, Laravel, API REST</p>
+      </div>
+      <div class="vis">
+        <figure>
+          <div class="ticket" aria-hidden="true">
+            <p class="c">VOTRE RESTAURANT</p>
+            <p class="c" style="font-weight:400">Reçu n° 0079</p>
+            <hr>
+            <div><span>2 × Bière blonde</span><span>3 000</span></div>
+            <div><span>1 × Poisson braisé</span><span>4 500</span></div>
+            <div><span>1 × Eau minérale</span><span>800</span></div>
+            <hr>
+            <div class="t"><span>TOTAL</span><span>8 300 XAF</span></div>
+            <div><span>Payé</span><span>5 000</span></div>
+            <div><span>Reste à payer</span><span>3 300</span></div>
+            <hr>
+            <p class="c" style="font-weight:400">Merci de votre visite</p>
+          </div>
+          <figcaption>Exemple de reçu avec paiement partiel</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="case">
+      <div>
+        <p class="meta"><span>ERP Odoo</span><span>Immobilier et hôtellerie</span></p>
+        <h3>Des loyers et des chambres gérés dans l'ERP</h3>
+        <dl>
+          <dt>Le besoin</dt><dd>Gérer des biens en location et un établissement hôtelier dans le même système que le reste de l'entreprise.</dd>
+          <dt>Ce que j'ai construit</dt><dd>Deux modules sur mesure, gestion locative et gestion hôtelière (PMS), reliés aux ventes, aux achats, à la facturation, à l'inventaire et à la maintenance.</dd>
+          <dt>Ce que ça change</dt><dd>Une réservation ou un loyer génère sa facture sans ressaisie, et la maintenance est suivie au même endroit.</dd>
+        </dl>
+        <p class="techs">Odoo, Python, PostgreSQL</p>
+      </div>
+      <div class="vis">
+        <figure>
+          <div class="plan" aria-hidden="true">
+            <div class="r"><span></span><span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span></div>
+            <div class="r"><span>Ch. 101</span><i class="b"></i><i class="b"></i><i class="b"></i><i></i><i></i><i class="h"></i><i class="h"></i></div>
+            <div class="r"><span>Ch. 102</span><i></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i><i></i><i></i></div>
+            <div class="r"><span>Ch. 103</span><i class="h"></i><i></i><i></i><i class="b"></i><i class="b"></i><i class="b"></i><i class="b"></i></div>
+            <div class="r"><span>Suite 201</span><i></i><i></i><i class="h"></i><i class="h"></i><i class="b"></i><i class="b"></i><i></i></div>
+            <div class="r"><span>Suite 202</span><i class="b"></i><i class="b"></i><i></i><i></i><i></i><i class="b"></i><i class="b"></i></div>
+            <div class="leg"><span><i class="b"></i>Occupée</span><span><i class="h"></i>Réservée</span><span><i></i>Libre</span></div>
+          </div>
+          <figcaption>Illustration d'un planning d'occupation</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <div class="others">
+      <article>
+        <p class="meta"><span>Application mobile</span><span class="live">En production</span></p>
+        <h3>Un ERP de gestion accessible sur mobile</h3>
+        <p>Le client mobile d'un ERP d'entreprise, construit en Clean Architecture pour rester facile à faire évoluer.</p>
+        <p class="techs">React Native, Laravel, API REST</p>
+      </article>
+      <article>
+        <p class="meta"><span>ERP Odoo</span><span>Code public</span></p>
+        <h3>Un ERP pour une entreprise de construction</h3>
+        <p>Un ERP adapté aux besoins du bâtiment, dont le code est consultable.</p>
+        <p class="techs"><a href="https://github.com/orkojr/erp-bric">Voir le code sur GitHub</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="methode" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <h2>Comment se passe un projet</h2>
+      <p>Quatre étapes, et vous validez à la fin de chacune.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Comprendre</h3><p>J'étudie votre fonctionnement avec les personnes concernées et je rédige ce que l'outil devra faire.</p></li>
+      <li><h3>Concevoir</h3><p>Je définis les modules, les droits d'accès et les liens avec vos outils existants.</p></li>
+      <li><h3>Développer</h3><p>Je livre par étapes, pour que vous voyiez l'outil avancer et que vous puissiez réagir tôt.</p></li>
+      <li><h3>Mettre en service</h3><p>Je déploie, je forme vos équipes et je reste disponible après le lancement.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="block" id="parcours" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><h2>Parcours</h2></div>
+    <div class="two">
+      <ol class="path">
+        <li><span class="when">Depuis juillet 2025</span><div><strong>Chef d'équipe Odoo</strong><em>OVA Consulting, Douala</em><p>Pilotage des projets, architecture des modules, revue de code et mentorat. Auparavant développeur Odoo et Python dans la même entreprise.</p></div></li>
+        <li><span class="when">2024</span><div><strong>Consultant développeur Flutter</strong><em>WORLS Engineering Solutions</em><p>Développement d'applications mobiles en Flutter et Dart.</p></div></li>
+        <li><span class="when">Mai 2022 à mai 2023</span><div><strong>Technicien Odoo</strong><em>Third Sarl, Douala</em><p>Déploiement d'Odoo dans les entreprises, avec adaptation de la solution aux besoins de chaque client.</p></div></li>
+        <li><span class="when">2020 à 2023</span><div><strong>Développeur</strong><em>SALEKA LTD</em><p>Premières années de développement logiciel.</p></div></li>
+      </ol>
+      <div class="aside">
+        <h3>Formation</h3>
+        <p>Master 2 Recherche en Systèmes Embarqués et Intelligence Artificielle, Université de Douala (en cours).</p>
+        <h3>ERP et backend</h3>
+        <ul class="chips"><li>Odoo</li><li>Python</li><li>PostgreSQL</li><li>API REST</li><li>Laravel</li></ul>
+        <h3>Mobile</h3>
+        <ul class="chips"><li>Flutter</li><li>React Native</li><li>Dart</li><li>Clean Architecture</li></ul>
+        <h3>Mise en production</h3>
+        <ul class="chips"><li>Docker</li><li>GitLab CI/CD</li><li>Git</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="contact" id="contact">
+  <div class="wrap">
+    <div class="cbox">
+      <div>
+        <h2>Parlons de votre projet.</h2>
+        <p>Décrivez-moi votre besoin en quelques lignes. Je vous réponds avec une première analyse et la façon dont je m'y prendrais.</p>
+        <a class="btn primary" href="mailto:jordankamga17@gmail.com?subject=Projet%20ERP%20ou%20mobile">Écrire un e-mail</a>
+      </div>
+      <ul class="links">
+        <li><span>E-mail</span><a href="mailto:jordankamga17@gmail.com">jordankamga17@gmail.com</a></li>
+        <li><span>Téléphone</span><span style="text-align:right"><a href="tel:+237695411470">+237 695 411 470</a><br><a href="tel:+237681810397">+237 681 810 397</a></span></li>
+        <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/jordan-kamga-wafo-524353206">Jordan Kamga Wafo</a></li>
+        <li><span>GitHub</span><a href="https://github.com/orkojr">orkojr</a></li>
+        <li><span>Où</span><span style="color:var(--ink);font-weight:600">Douala, et à distance</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap"><span>Jordan Kamga Wafo</span><span>ERP Odoo et applications mobiles, Douala, Cameroun</span></div></footer>
+
+<script>
+const fmt=n=>n.toLocaleString("fr-FR");
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;};
+
+/* Démo ERP */
+const cos=[
+ {n:"Filiale 1",k:[148,62,214,9],m:[52,55,54,58,60,62]},
+ {n:"Filiale 2",k:[86,31,97,4],m:[27,28,28,30,30,31]},
+ {n:"Filiale 3",k:[203,88,342,14],m:[79,80,84,83,86,88]},
+ {n:"Filiale 4",k:[41,17,58,2],m:[14,15,15,16,17,17]},
+ {n:"Filiale 5",k:[112,46,173,7],m:[40,41,43,44,44,46]},
+ {n:"Filiale 6",k:[67,24,121,3],m:[21,22,22,23,23,24]}
+];
+const group={n:"Groupe",k:[0,0,0,0],m:[0,0,0,0,0,0]};
+cos.forEach(c=>{c.k.forEach((v,i)=>group.k[i]+=v);c.m.forEach((v,i)=>group.m[i]+=v);});
+const all=[group,...cos],months=["mai","juin","juil.","août","sept.","oct."];
+const coBox=document.getElementById("co"),bars=document.getElementById("bars");
+const kEls=[0,1,2,3].map(i=>document.getElementById("k"+i));
+let shown=[0,0,0,0];
+months.forEach(m=>{const d=el("div");d.append(el("i"),el("span",null,m));bars.append(d);});
+function tween(i,to){
+  const from=shown[i],t0=performance.now(),still=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  shown[i]=to;
+  if(still){kEls[i].textContent=fmt(to);return;}
+  (function f(t){const p=Math.min(1,(t-t0)/450),e=1-Math.pow(1-p,3);kEls[i].textContent=fmt(Math.round(from+(to-from)*e));if(p<1)requestAnimationFrame(f);})(t0);
+}
+function showCo(i){
+  [...coBox.children].forEach((b,j)=>b.setAttribute("aria-pressed",j===i));
+  const c=all[i],max=Math.max(...c.m);
+  c.k.forEach((v,j)=>tween(j,v));
+  [...bars.children].forEach((d,j)=>d.firstChild.style.height=Math.round(c.m[j]/max*78)+"%");
+}
+all.forEach((c,i)=>{const b=el("button",null,c.n);b.type="button";b.addEventListener("click",()=>showCo(i));coBox.append(b);});
+showCo(0);
+
+/* Démo point de vente */
+const products=[
+ {n:"Bière blonde 65 cl",c:"Bières",p:1500,s:256},
+ {n:"Jus d'ananas",c:"Sans alcool",p:1000,s:64},
+ {n:"Eau minérale 1,5 L",c:"Sans alcool",p:800,s:120},
+ {n:"Poisson braisé",c:"Cuisine",p:4500,s:18},
+ {n:"Brochettes de bœuf",c:"Cuisine",p:2500,s:4},
+ {n:"Whisky 12 ans, le verre",c:"Spiritueux",p:3500,s:51}
+];
+let orders=[
+ {id:78,t:"Bière blonde 65 cl ×1",a:1500,ok:false},
+ {id:77,t:"Poisson braisé ×1, Eau minérale 1,5 L ×1",a:5300,ok:true},
+ {id:76,t:"Bière blonde 65 cl ×2",a:3000,ok:true}
+];
+let cart=products.map(()=>0),tab="vente",next=79;
+const view=document.getElementById("view"),pay=document.getElementById("pay"),totalEl=document.getElementById("total"),
+      cash=document.getElementById("cash"),title=document.getElementById("apptitle"),toast=document.getElementById("toast"),tabs=document.getElementById("tabs");
+const titles={vente:"Nouvelle vente",hist:"Historique",sess:"Session de caisse",stock:"États des stocks"};
+const sum=()=>cart.reduce((a,q,i)=>a+q*products[i].p,0);
+function draw(){
+  title.textContent=titles[tab];
+  [...tabs.children].forEach(b=>b.setAttribute("aria-pressed",b.dataset.t===tab));
+  pay.style.display=tab==="vente"?"flex":"none";
+  view.textContent="";
+  if(tab==="vente"){
+    products.forEach((p,i)=>{
+      const r=el("div","row"),l=el("div");
+      l.append(el("b",null,p.n),el("small",null,fmt(p.p)+" XAF"));
+      const s=el("div","step"),m=el("button",null,"−"),q=el("span",null,cart[i]),a=el("button",null,"+");
+      m.type=a.type="button";m.disabled=cart[i]===0;a.disabled=cart[i]>=p.s;
+      m.setAttribute("aria-label","Retirer "+p.n);a.setAttribute("aria-label","Ajouter "+p.n);
+      m.addEventListener("click",()=>{cart[i]--;draw();});
+      a.addEventListener("click",()=>{cart[i]++;draw();});
+      s.append(m,q,a);r.append(l,s);view.append(r);
+    });
+    totalEl.textContent=fmt(sum())+" XAF";cash.disabled=sum()===0;
+  }else if(tab==="hist"){
+    orders.forEach(o=>{
+      const r=el("div","row"),l=el("div"),rt=el("div");
+      l.append(el("b",null,"#"+String(o.id).padStart(4,"0")),el("small",null,o.t));
+      rt.style.textAlign="right";
+      rt.append(el("b",null,fmt(o.a)+" XAF"),el("span","st "+(o.ok?"p":"c"),o.ok?"Payée":"Annulée"));
+      r.append(l,rt);view.append(r);
+    });
+  }else if(tab==="sess"){
+    const paid=orders.filter(o=>o.ok),ca=paid.reduce((a,o)=>a+o.a,0);
+    view.append(el("div","ok","Session prête à être clôturée"));
+    const g=el("div","g2");
+    [[paid.length,"Commandes","#2457E6"],[fmt(ca)+" XAF","CA brut","#D47B0A"],[fmt(ca)+" XAF","Montant net","#12915A"],[fmt(ca)+" XAF","Encaissé","#0E8FA8"]]
+      .forEach(([v,l,c])=>{const d=el("div");d.style.setProperty("--c",c);d.append(el("b",null,v),document.createTextNode(l));g.append(d);});
+    view.append(g);
+  }else{
+    products.forEach(p=>{
+      const r=el("div","row"),l=el("div"),q=el("div","q"+(p.s<=5?" low":""));
+      l.append(el("b",null,p.n),el("small",null,p.c));
+      q.append(document.createTextNode(p.s),el("small",null,p.s===0?"rupture":p.s<=5?"stock bas":"en stock"));
+      q.lastChild.style.display="block";
+      r.append(l,q);view.append(r);
+    });
+  }
+}
+tabs.addEventListener("click",e=>{const b=e.target.closest("button");if(b){tab=b.dataset.t;draw();}});
+cash.addEventListener("click",()=>{
+  const a=sum();if(!a)return;
+  const t=cart.map((q,i)=>q?products[i].n+" ×"+q:"").filter(Boolean).join(", ");
+  cart.forEach((q,i)=>products[i].s-=q);
+  const id=next++;orders.unshift({id,t,a,ok:true});
+  cart=products.map(()=>0);tab="hist";draw();
+  toast.textContent="Commande #"+String(id).padStart(4,"0")+" encaissée, reçu imprimé";
+  toast.classList.add("on");setTimeout(()=>toast.classList.remove("on"),2600);
+});
+draw();
+
+/* Thème */
+const root=document.documentElement;
+try{const s=localStorage.getItem("theme");if(s==="light"||s==="dark")root.setAttribute("data-theme",s);}catch(e){}
+document.getElementById("theme").addEventListener("click",()=>{
+  const next=root.getAttribute("data-theme")==="dark"?"light":"dark";
+  root.setAttribute("data-theme",next);
+  try{localStorage.setItem("theme",next);}catch(e){}
+});
+</script>
+</body>
+</html>
