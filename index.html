@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Jordan Kamga Wafo, ERP Odoo et applications mobiles sur mesure</title>
-<meta name="description" content="Développeur Odoo et mobile à Douala. ERP sur mesure (paie, RH, multi-sociétés), points de vente pour la restauration et applications mobiles Flutter et React Native.">
+<title>Jordan Kamga Wafo, consultant Odoo · ERP sur mesure et paie camerounaise</title>
+<meta name="description" content="Consultant technico-fonctionnel Odoo à Douala, Odoo 13 à 19. ERP sur mesure, paie et RH camerounaises conformes, multi-sociétés, intégrations, et applications mobiles connectées.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://orkojr.github.io/">
-<meta property="og:title" content="Jordan Kamga Wafo, ERP Odoo et applications mobiles sur mesure">
-<meta property="og:description" content="Développeur Odoo et mobile à Douala : ERP sur mesure, points de vente et applications Flutter et React Native.">
+<meta property="og:title" content="Jordan Kamga Wafo, consultant Odoo · ERP sur mesure et paie camerounaise">
+<meta property="og:description" content="Consultant technico-fonctionnel Odoo à Douala : ERP sur mesure, paie camerounaise conforme, intégrations et applications mobiles.">
 <meta property="og:image" content="https://orkojr.github.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -283,6 +283,31 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
   .bar nav a.cta{white-space:nowrap;font-size:.85rem;padding:.5rem .8rem}
   .hero .wrap{gap:2.5rem}
 }
+/* Bulletin de paie illustratif */
+.slip{width:100%;max-width:25rem;margin:0 auto;background:var(--raised);border:1px solid var(--line);border-radius:.9rem;overflow:hidden;font-size:.82rem}
+.slip .h{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1rem;border-bottom:1px solid var(--line);font-weight:700}
+.slip .h span{font-weight:600;font-size:.72rem;color:var(--muted)}
+.slip .r{display:grid;grid-template-columns:1fr auto;gap:.15rem 1rem;padding:.55rem 1rem;border-bottom:1px solid var(--line)}
+.slip .r b{font-weight:600}
+.slip .r em{grid-column:1/-1;font-style:normal;font-size:.72rem;color:var(--accent);font-weight:600}
+.slip .r .v{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.slip .r.tot{background:var(--accent-soft)}
+.slip .f{display:flex;gap:.4rem;flex-wrap:wrap;padding:.7rem 1rem}
+.slip .f span{font-size:.72rem;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:2rem;padding:.25rem .65rem}
+/* Flux d'intégration */
+.flow{display:flex;flex-direction:column;align-items:stretch;gap:0;max-width:22rem;margin:0 auto}
+.flow .n{border:1px solid var(--line);background:var(--raised);border-radius:.8rem;padding:.75rem 1rem;font-weight:700;font-size:.9rem}
+.flow .n small{display:block;font-weight:500;color:var(--muted);font-size:.76rem;margin-top:.15rem}
+.flow .n.k{background:var(--accent);color:var(--accent-ink);border-color:transparent}
+.flow .n.k small{color:inherit;opacity:.8}
+.flow .a{align-self:center;width:1px;height:1.4rem;background:var(--line);position:relative}
+.flow .a::after{content:"";position:absolute;left:-4px;bottom:-1px;border:4px solid transparent;border-top-color:var(--muted)}
+.flow .a span{position:absolute;left:.7rem;top:.15rem;white-space:nowrap;font-size:.72rem;color:var(--muted);font-weight:600}
+/* Versions */
+.vers{display:flex;flex-wrap:wrap;gap:.35rem;list-style:none;margin:0 0 1.75rem;padding:0}
+.vers li{min-width:2.2rem;text-align:center;font-size:.85rem;font-weight:700;padding:.3rem .5rem;border-radius:.45rem;background:var(--accent-soft);color:var(--accent)}
+.vers li.e{background:var(--accent);color:var(--accent-ink)}
+.btn.small{padding:.7rem 1.15rem;font-size:.92rem}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.stage{animation:none}.erp .bars i,.toast{transition:none}}
 </style>
 </head>
@@ -307,9 +332,9 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
 <div class="hero">
   <div class="wrap">
     <div>
-      <p class="who"><b>Jordan Kamga Wafo</b>, développeur Odoo et mobile à Douala</p>
+      <p class="who"><b>Jordan Kamga Wafo</b>, consultant technico-fonctionnel Odoo à Douala</p>
       <h1>Toute votre entreprise dans un seul système, de la paie à la caisse.</h1>
-      <p class="lede">Je conçois des ERP Odoo sur mesure et les applications mobiles qui s'y connectent. Vous gérez vos équipes, vos ventes et vos stocks au même endroit, depuis le bureau ou depuis un téléphone.</p>
+      <p class="lede">Depuis 2020, de la version 13 à la 19, je conçois et déploie des ERP Odoo sur mesure : paie et RH camerounaises conformes, comptabilité, stocks, fabrication, point de vente. Et quand il le faut, l'application mobile qui s'y connecte.</p>
       <div class="actions">
         <a class="btn primary" href="#contact">Discuter de votre projet</a>
         <a class="btn ghost" href="#projets">Voir les réalisations</a>
@@ -354,10 +379,10 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
 
 <div class="facts">
   <div class="wrap">
-    <div><b>Depuis 2022</b><span>sur Odoo, du déploiement à l'architecture</span></div>
-    <div><b>6 filiales</b><span>pilotées dans un seul ERP de holding</span></div>
-    <div><b>2 applications</b><span>mobiles en production</span></div>
-    <div><b>5 ans et plus</b><span>de développement logiciel</span></div>
+    <div><b>6 ans</b><span>sur Odoo, depuis la version 13</span></div>
+    <div><b>13 → 19</b><span>Community et Enterprise</span></div>
+    <div><b>73 rubriques</b><span>de paie fondées sur la loi camerounaise</span></div>
+    <div><b>Équipe de 4</b><span>développeurs et testeurs encadrés</span></div>
   </div>
 </div>
 
@@ -371,19 +396,19 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
       <div class="cell big">
         <h3>Un ERP Odoo taillé pour votre activité</h3>
         <p>Quand les modules standards ne suffisent pas, je développe les vôtres. Vos processus restent les vôtres, et toutes vos données vivent dans un seul système au lieu de dix fichiers Excel.</p>
-        <ul class="mods"><li>Paie</li><li>Ressources humaines</li><li>Comptabilité</li><li>Ventes</li><li>Achats</li><li>Stocks</li><li>Suivi de projets</li></ul>
+        <ul class="mods"><li>Paie</li><li>Ressources humaines</li><li>Comptabilité</li><li>Ventes</li><li>Achats</li><li>Stocks</li><li>Fabrication</li><li>Point de vente</li><li>E-commerce</li><li>Rapports QWeb et Excel</li></ul>
       </div>
       <div class="cell">
-        <h3>Paie et RH</h3>
-        <p>Recrutement, contrats, congés et bulletins de paie, avec vos propres règles de calcul.</p>
+        <h3>Paie camerounaise</h3>
+        <p>IRPP, CNPS, TDL, crédit foncier, congés et ancienneté selon les textes, avec des taux que vous mettez à jour vous-même.</p>
       </div>
       <div class="cell">
-        <h3>Caisse et restauration</h3>
-        <p>Commandes par serveur, clôture de caisse, reçus imprimés, crédit et paiements partiels.</p>
+        <h3>Intégrations</h3>
+        <p>Votre ERP relié à vos autres outils par API : synchronisation automatique, contrôles avant création, suivi des erreurs.</p>
       </div>
       <div class="cell">
         <h3>Applications mobiles</h3>
-        <p>Android et iOS à partir d'un seul code, en Flutter ou React Native, connectées à votre ERP.</p>
+        <p>Caisse, stocks ou consultation de l'ERP depuis un téléphone, en Flutter ou React Native.</p>
       </div>
       <div class="cell">
         <h3>Groupes et holdings</h3>
@@ -406,38 +431,59 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
 
     <article class="case">
       <div>
-        <p class="meta"><span>ERP Odoo</span><span>Enseignement supérieur</span><span class="live">En production</span></p>
-        <h3>Six filiales, un seul ERP</h3>
+        <p class="meta"><span>Paie Odoo</span><span>Enseignement supérieur</span><span>Plus de 300 salariés</span></p>
+        <h3>Une paie camerounaise conforme, et qui le prouve</h3>
         <dl>
-          <dt>Le besoin</dt><dd>Un groupe de six sociétés voulait piloter l'ensemble sans multiplier les outils ni mélanger les données de chacune.</dd>
-          <dt>Ce que j'ai construit</dt><dd>Une architecture Odoo multi-sociétés : RH complète (recrutement, paie, congés), comptabilité, gestion commerciale et indicateurs de pilotage.</dd>
-          <dt>Ce que ça change</dt><dd>Chaque filiale travaille dans son périmètre, et la direction voit le groupe entier sur un seul tableau de bord.</dd>
+          <dt>Le besoin</dt><dd>Remplacer des classeurs Excel par une paie Odoo multi-sociétés, juste au regard du CGI, du Code du travail et de la CNPS.</dd>
+          <dt>Ce que j'ai construit</dt><dd>73 rubriques rattachées chacune à son texte, un IRPP annualisé vérifié contre le barème de la DGI, et des taux et barèmes datés que le client met à jour sans développeur. Plus les congés, l'ancienneté, les prêts et avances.</dd>
+          <dt>Comment je l'ai vérifié</dt><dd>115 tests automatisés et un outil qui rejoue 952 bulletins réels au franc près contre les anciens états Excel. Chaque écart trouvé a été rattaché à une règle et à un texte, puis remis au client.</dd>
         </dl>
-        <p class="techs">Odoo, Python, PostgreSQL, Docker, GitLab CI/CD</p>
+        <p class="techs">Odoo 16, Python, PostgreSQL, tests unitaires, Docker, GitLab CI/CD</p>
       </div>
       <div class="vis">
         <figure>
-          <div class="arch" aria-hidden="true">
-            <div class="shared"><span>RH et paie</span><span>Comptabilité</span><span>Ventes</span><span>Indicateurs</span></div>
-            <div class="stem"></div>
-            <div class="node core">ERP du groupe<small>une seule base Odoo</small></div>
-            <div class="stem"></div>
-            <div class="rail"></div>
-            <div class="kids">
-              <div><div class="stem"></div><div class="node">Filiale 1</div></div>
-              <div><div class="stem"></div><div class="node">Filiale 2</div></div>
-              <div><div class="stem"></div><div class="node">Filiale 3</div></div>
-              <div><div class="stem"></div><div class="node">Filiale 4</div></div>
-              <div><div class="stem"></div><div class="node">Filiale 5</div></div>
-              <div><div class="stem"></div><div class="node">Filiale 6</div></div>
-            </div>
+          <div class="slip" aria-hidden="true">
+            <div class="h">Extrait de bulletin<span>chaque ligne a sa source</span></div>
+            <div class="r"><b>Salaire de base</b><span class="v">250 000</span><em>CGI art. 31</em></div>
+            <div class="r"><b>Prime d'ancienneté</b><span class="v">9 324</span><em>Arrêté n°010/MTPS/DT de 1971</em></div>
+            <div class="r"><b>IRPP</b><span class="v">−12 340</span><em>CGI art. 29 et 34, barème annualisé</em></div>
+            <div class="r"><b>Pension vieillesse</b><span class="v">−10 892</span><em>CNPS, 4,2 % plafonné</em></div>
+            <div class="r"><b>Taxe de développement local</b><span class="v">−2 000</span><em>Loi n°2009/019, art. 58</em></div>
+            <div class="f"><span>115 tests ✓</span><span>952 bulletins rejoués</span><span>taux datés</span></div>
           </div>
-          <figcaption>Données isolées par société, vue consolidée pour la direction</figcaption>
+          <figcaption>Illustration avec des montants fictifs</figcaption>
         </figure>
       </div>
     </article>
 
     <article class="case flip">
+      <div>
+        <p class="meta"><span>Intégration Odoo</span><span>API REST</span><span class="live">En production</span></p>
+        <h3>Une plateforme académique branchée sur les RH</h3>
+        <dl>
+          <dt>Le besoin</dt><dd>Créer les enseignants dans Odoo sans doublon ni ressaisie, à partir de la plateforme qui gère déjà la scolarité.</dd>
+          <dt>Ce que j'ai construit</dt><dd>Un client API REST : vérification de l'enseignant avant la création de sa fiche, remplissage automatique, synchronisation chaque nuit et tableau de bord des réussites et des erreurs.</dd>
+          <dt>Ce que ça change</dt><dd>Les RH ne ressaisissent plus rien, et les écarts entre les deux systèmes sont visibles au lieu d'être découverts trop tard.</dd>
+        </dl>
+        <p class="techs">Odoo 16, Python, API REST, tâches planifiées</p>
+      </div>
+      <div class="vis">
+        <figure>
+          <div class="flow" aria-hidden="true">
+            <div class="n">Plateforme académique<small>enseignants de l'année en cours</small></div>
+            <div class="a"><span>API REST, HTTPS</span></div>
+            <div class="n k">Contrôle avant création<small>nom, date et lieu de naissance</small></div>
+            <div class="a"><span>chaque nuit à 3 h</span></div>
+            <div class="n">Odoo RH<small>fiches créées ou mises à jour</small></div>
+            <div class="a"><span>résultat</span></div>
+            <div class="n">Tableau de bord<small>synchronisés, en attente, erreurs</small></div>
+          </div>
+          <figcaption>Le flux de synchronisation</figcaption>
+        </figure>
+      </div>
+    </article>
+
+    <article class="case">
       <div>
         <p class="meta"><span>Application mobile</span><span>Bars et restaurants</span><span class="live">En production</span></p>
         <h3>La caisse dans la poche du serveur</h3>
@@ -469,16 +515,16 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
       </div>
     </article>
 
-    <article class="case">
+    <article class="case flip">
       <div>
         <p class="meta"><span>ERP Odoo</span><span>Immobilier et hôtellerie</span></p>
         <h3>Des loyers et des chambres gérés dans l'ERP</h3>
         <dl>
           <dt>Le besoin</dt><dd>Gérer des biens en location et un établissement hôtelier dans le même système que le reste de l'entreprise.</dd>
-          <dt>Ce que j'ai construit</dt><dd>Deux modules sur mesure, gestion locative et gestion hôtelière (PMS), reliés aux ventes, aux achats, à la facturation, à l'inventaire et à la maintenance.</dd>
+          <dt>Ce que j'ai construit</dt><dd>Deux modules sur mesure. La gestion locative couvre bâtiments, logements, contrats, facturation et paiements avec réconciliation. Le PMS couvre réservations, arrivées et départs, et un planning chambres × dates interactif développé en OWL, relié à la facturation, au point de vente et à la maintenance.</dd>
           <dt>Ce que ça change</dt><dd>Une réservation ou un loyer génère sa facture sans ressaisie, et la maintenance est suivie au même endroit.</dd>
         </dl>
-        <p class="techs">Odoo, Python, PostgreSQL</p>
+        <p class="techs">Odoo 16, Python, OWL, PostgreSQL</p>
       </div>
       <div class="vis">
         <figure>
@@ -517,13 +563,13 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
   <div class="wrap">
     <div class="head">
       <h2>Comment se passe un projet</h2>
-      <p>Quatre étapes, et vous validez à la fin de chacune.</p>
+      <p>La même démarche sur chaque projet, et vous validez à la fin de chaque étape.</p>
     </div>
     <ol class="steps">
-      <li><h3>Comprendre</h3><p>J'étudie votre fonctionnement avec les personnes concernées et je rédige ce que l'outil devra faire.</p></li>
+      <li><h3>Comprendre</h3><p>Ateliers avec vos équipes, checklists de clarification et exemples réels, puis des spécifications écrites.</p></li>
       <li><h3>Concevoir</h3><p>Je définis les modules, les droits d'accès et les liens avec vos outils existants.</p></li>
-      <li><h3>Développer</h3><p>Je livre par étapes, pour que vous voyiez l'outil avancer et que vous puissiez réagir tôt.</p></li>
-      <li><h3>Mettre en service</h3><p>Je déploie, je forme vos équipes et je reste disponible après le lancement.</p></li>
+      <li><h3>Développer et tester</h3><p>Livraisons par étapes, revue de code et tests automatisés, pour que chaque version soit vérifiée avant de vous arriver.</p></li>
+      <li><h3>Mettre en service</h3><p>Déploiement par Docker et GitLab CI/CD, documentation, formation de vos équipes et suivi après le lancement.</p></li>
     </ol>
   </div>
 </section>
@@ -533,20 +579,24 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
     <div class="head"><h2>Parcours</h2></div>
     <div class="two">
       <ol class="path">
-        <li><span class="when">Depuis juillet 2025</span><div><strong>Chef d'équipe Odoo</strong><em>OVA Consulting, Douala</em><p>Pilotage des projets, architecture des modules, revue de code et mentorat. Auparavant développeur Odoo et Python dans la même entreprise.</p></div></li>
-        <li><span class="when">2024</span><div><strong>Consultant développeur Flutter</strong><em>WORLS Engineering Solutions</em><p>Développement d'applications mobiles en Flutter et Dart.</p></div></li>
-        <li><span class="when">Mai 2022 à mai 2023</span><div><strong>Technicien Odoo</strong><em>Third Sarl, Douala</em><p>Déploiement d'Odoo dans les entreprises, avec adaptation de la solution aux besoins de chaque client.</p></div></li>
-        <li><span class="when">2020 à 2023</span><div><strong>Développeur</strong><em>SALEKA LTD</em><p>Premières années de développement logiciel.</p></div></li>
+        <li><span class="when">Depuis juillet 2025</span><div><strong>Chef d'équipe et intégrateur Odoo</strong><em>OVA Consulting, Douala · Odoo 16</em><p>Projets menés de bout en bout, du recueil des besoins au déploiement, avec une équipe de deux développeurs et deux testeurs. Paie camerounaise, intégrations, gestion locative et hôtelière.</p></div></li>
+        <li><span class="when">Sept. 2024 à juil. 2025</span><div><strong>Consultant Odoo indépendant</strong><em>Missions freelance · Odoo 17 à 19 Enterprise</em><p>Déploiements pour une boulangerie et un studio photo : fabrication, inventaire, comptabilité, e-commerce et site web.</p></div></li>
+        <li><span class="when">Août 2023 à sept. 2024</span><div><strong>Développeur Flutter</strong><em>Elite Services, Douala</em><p>Conception d'applications mobiles en Flutter et Dart, publiées sur le Play Store.</p></div></li>
+        <li><span class="when">Avr. 2022 à avr. 2023</span><div><strong>Développeur technique Odoo</strong><em>Third Sarl, Douala · Odoo 15</em><p>Personnalisation et création de modules (stocks, fabrication, achats, ventes, RH), rapports QWeb et exports Excel sur mesure.</p></div></li>
+        <li><span class="when">Avr. 2020 à juil. 2023</span><div><strong>Développeur solutions web et ERP</strong><em>SALEKA LTD, à distance · Odoo 13</em><p>Premiers projets Odoo, présentations de l'ERP aux clients, coordination d'une équipe de techniciens développeurs.</p></div></li>
       </ol>
       <div class="aside">
-        <h3>Formation</h3>
-        <p>Master 2 Recherche en Systèmes Embarqués et Intelligence Artificielle, Université de Douala (en cours).</p>
-        <h3>ERP et backend</h3>
-        <ul class="chips"><li>Odoo</li><li>Python</li><li>PostgreSQL</li><li>API REST</li><li>Laravel</li></ul>
-        <h3>Mobile</h3>
-        <ul class="chips"><li>Flutter</li><li>React Native</li><li>Dart</li><li>Clean Architecture</li></ul>
+        <h3>Versions Odoo</h3>
+        <ul class="vers" aria-label="Community 13 à 18, Enterprise 17 à 19"><li>13</li><li>14</li><li>15</li><li>16</li><li>17</li><li>18</li><li class="e">17 E</li><li class="e">18 E</li><li class="e">19 E</li></ul>
+        <h3>Odoo et backend</h3>
+        <ul class="chips"><li>Python</li><li>ORM</li><li>Vues XML</li><li>QWeb</li><li>Rapports XLSX</li><li>OWL</li><li>ir.rule</li><li>API REST</li><li>Tests unitaires</li><li>PostgreSQL</li></ul>
         <h3>Mise en production</h3>
         <ul class="chips"><li>Docker</li><li>GitLab CI/CD</li><li>Git</li></ul>
+        <h3>Mobile</h3>
+        <ul class="chips"><li>Flutter</li><li>React Native</li><li>Dart</li></ul>
+        <h3>Formation</h3>
+        <p>Master 2 Recherche, Université de Douala (en cours). Licence, Université de Douala (2018–2021). Scrum Fundamentals Certified (2022).</p>
+        <a class="btn ghost small" href="CV_Jordan_Kamga_Wafo_Odoo.pdf" download>Télécharger mon CV (PDF)</a>
       </div>
     </div>
   </div>
@@ -558,7 +608,7 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
       <div>
         <h2>Parlons de votre projet.</h2>
         <p>Décrivez-moi votre besoin en quelques lignes. Je vous réponds avec une première analyse et la façon dont je m'y prendrais.</p>
-        <a class="btn primary" href="mailto:jordankamga17@gmail.com?subject=Projet%20ERP%20ou%20mobile">Écrire un e-mail</a>
+        <a class="btn primary" href="mailto:jordankamga17@gmail.com?subject=Projet%20Odoo">Écrire un e-mail</a>
       </div>
       <ul class="links">
         <li><span>E-mail</span><a href="mailto:jordankamga17@gmail.com">jordankamga17@gmail.com</a></li>
@@ -572,7 +622,7 @@ footer .wrap{padding-top:1.4rem;padding-bottom:1.6rem;display:flex;justify-conte
 </div>
 </main>
 
-<footer><div class="wrap"><span>Jordan Kamga Wafo</span><span>ERP Odoo et applications mobiles, Douala, Cameroun</span></div></footer>
+<footer><div class="wrap"><span>Jordan Kamga Wafo</span><span>Consultant Odoo, Douala, Cameroun</span></div></footer>
 
 <script>
 const fmt=n=>n.toLocaleString("fr-FR");
